@@ -41,23 +41,23 @@ if new
     puts "Creating folder #{folder}..."
 
     target_dir = Path.new("#{root_dir}/solutions/#{folder}")
-    # check if folder exists
-    if Dir.exists?(target_dir)
-        STDERR.puts "#{root_dir}/solutions/#{folder} already exists... ABORTING"
-        ins = "#{target_dir}/in"
-        outs = "#{target_dir}/out"
-        FileUtils.mkdir_p([ins, outs]) if !Dir.exists?(ins) && !Dir.exists?(outs)
-        FileUtils.touch(["#{ins}/sample.in", "#{ins}/test.in"]) if !File.exists?("#{ins}/sample.in") && !File.exists?("#{ins}/test.in")
-        FileUtils.touch(["#{outs}/sample.out", "#{outs}/test.out"]) if !File.exists?("#{ins}/sample.out") && !File.exists?("#{ins}/test.out")
-        exit(1)
-    else
-        ins = "#{target_dir}/in"
-        outs = "#{target_dir}/out"
-        FileUtils.mkdir_p([ins, outs])
-        FileUtils.touch(["#{ins}/sample.in", "#{ins}/test.in"])
-        FileUtils.touch(["#{outs}/sample.out", "#{outs}/test.out"])
-        FileUtils.cp("#{template_dir}/solution.cr.template", "#{target_dir}/solution.cr")
+
+    ins = "#{target_dir}/in"
+    outs = "#{target_dir}/out"
+    dirs = [ins, outs]
+
+    files = ["#{ins}/sample.in", "#{ins}/test.in", "#{outs}/sample.out", "#{outs}/test.out"]
+
+    dirs.each do |dir|
+        FileUtils.mkdir_p(dir) if !Dir.exists?(dir)
     end
+
+    files.each do |file|
+        FileUtils.touch(file) if !File.exists?(file)
+    end
+
+    FileUtils.cp("#{template_dir}/solution.cr.template", "#{target_dir}/solution.cr") if !File.exists?("#{target_dir}/solution.cr")
+
 elsif run
     # only run if folder exists
     puts "Running..."
