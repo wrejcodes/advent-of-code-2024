@@ -44,6 +44,11 @@ if new
     # check if folder exists
     if Dir.exists?(target_dir)
         STDERR.puts "#{root_dir}/solutions/#{folder} already exists... ABORTING"
+        ins = "#{target_dir}/in"
+        outs = "#{target_dir}/out"
+        FileUtils.mkdir_p([ins, outs]) if !Dir.exists?(ins) && !Dir.exists?(outs)
+        FileUtils.touch(["#{ins}/sample.in", "#{ins}/test.in"]) if !File.exists?("#{ins}/sample.in") && !File.exists?("#{ins}/test.in")
+        FileUtils.touch(["#{outs}/sample.out", "#{outs}/test.out"]) if !File.exists?("#{ins}/sample.out") && !File.exists?("#{ins}/test.out")
         exit(1)
     else
         ins = "#{target_dir}/in"
