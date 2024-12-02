@@ -1,0 +1,14 @@
+name: advent-of-code-2022
+version: 0.1.0
+
+authors:
+  - wrejcodes <wrejcodes@gmail.com>
+
+description: |
+  Tools and solutions for AoC 2022
+
+targets:
+  cli:
+    main: cli/cli.cr
+
+license: MIT

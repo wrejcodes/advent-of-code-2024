@@ -1,0 +1,5 @@
+*.in
+*.o
+bin
+*.out
+lib
